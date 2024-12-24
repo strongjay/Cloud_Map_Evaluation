@@ -1,0 +1,33 @@
+点云重建质量评估：
+安装 camke3.29
+	下载：https://github.com/Kitware/CMake/releases/download/v3.29.0/cmake-3.29.0.tar.gz
+	tar -xzvf cmake-3.29.0.tar.gz
+	cd cmake-3.29.0
+	./bootstrap
+	make
+	sudo make install
+	gedit ~/.bashrc 
+		export PATH=$PATH:'/path/to/cmake-3.29.0/bin'
+		export CMAKE_ROOT='/path/to/cmake'
+	
+安装 libc++ 和 libc++abi
+	sudo apt update
+	sudo apt install libc++-dev libc++abi-dev
+
+安装open3d（cloud_map_eval要求的版本是0.17.0）
+	git clone https://github.com/isl-org/Open3D.git
+	cd Open3D && mkdir build && cd build   
+	cmake ..
+	sudo make install
+	
+编译库 cloud_map_eval：
+	git clone https://github.com/JokerJohn/Cloud_Map_Evaluation.git
+	cd Cloud_Map_Evaluation/cloud_map_eval && mkdir build
+	修改cmakeliat.txt 其中open3d的版本改为编译的版本
+	cmake ..
+	make
+	./cloud_map_eval
+	
+ps：
+	待评价文件：/home/work/AWorkSpace/Cloud_Map_Evaluation/cloud_map_evaluation/dataset/MCR_slow/map.pcd
+	基准文件：/home/work/AWorkSpace/Cloud_Map_Evaluation/cloud_map_evaluation/dataset/MCR_slow/MCR_slow_gt.pcd
